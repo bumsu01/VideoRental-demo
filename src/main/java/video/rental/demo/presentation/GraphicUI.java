@@ -67,6 +67,28 @@ public class GraphicUI extends JFrame implements UI {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
+		initWindow();
+
+		initRegisterUserUI();
+
+		initRegisterVideoUI();
+
+		makeSeparator(28, 136, 572, 1);
+		makeSeparator(18, 128, 583, 16);
+
+		makeButton("Rent", (e) -> rentVideo(), 18, 148, 117, 29);
+		makeButton("Return", (e) -> returnVideo(), 136, 148, 117, 29);
+
+		makeSeparator(18, 176, 583, 16);
+
+		makeButton("List Customers", (e) -> listCustomers(), 18, 193, 130, 29);
+		makeButton("List Videos", (e) -> listVideos(), 146, 193, 117, 29);
+		makeButton("Customer Report", (e) -> getCustomerReport(), 297, 193, 138, 29);
+		makeButton("Clear Customer Rentals", (e) -> clearRentals(), 427, 193, 174, 29);
+		makeButton("Clear", (e) -> clear(), 484, 149, 117, 29);
+	}
+
+	private void initWindow() {
 		textArea = new JTextArea(6, 80);
 		textArea.setEditable(false);
 		textArea.setVisible(true);
@@ -79,30 +101,9 @@ public class GraphicUI extends JFrame implements UI {
 		lblWelcomeToSs.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		lblWelcomeToSs.setBounds(208, 20, 210, 16);
 		getContentPane().add(lblWelcomeToSs);
+	}
 
-		makeButton("Register User", (e) -> registerUser(), 18, 54, 117, 29);
-
-		makeLabel("User Code:", 147, 59, 70, 16);
-
-		userCodeField = new JTextField();
-		userCodeField.setBounds(217, 54, 50, 26);
-		getContentPane().add(userCodeField);
-		userCodeField.setColumns(10);
-
-		makeLabel("Name:", 280, 59, 61, 16);
-
-		nameField = new JTextField();
-		nameField.setBounds(324, 54, 120, 26);
-		getContentPane().add(nameField);
-		nameField.setColumns(10);
-
-		makeLabel("Birthday:", 462, 59, 60, 16);
-
-		birthdayField = new JTextField();
-		birthdayField.setBounds(520, 54, 96, 26);
-		getContentPane().add(birthdayField);
-		birthdayField.setColumns(10);
-
+	private void initRegisterVideoUI() {
 		makeButton("Register Video", (e) -> registerVideo(), 18, 95, 117, 29);
 
 		makeLabel("Title:", 147, 100, 61, 16);
@@ -129,20 +130,31 @@ public class GraphicUI extends JFrame implements UI {
 		ratingSpinner = makeSpinner("Twelve", "Fifteen", "Eighteen");
 		ratingSpinner.setBounds(590, 95, 70, 26);
 		getContentPane().add(ratingSpinner);
+	}
 
-		makeSeparator(28, 136, 572, 1);
-		makeSeparator(18, 128, 583, 16);
+	private void initRegisterUserUI() {
+		makeButton("Register User", (e) -> registerUser(), 18, 54, 117, 29);
 
-		makeButton("Rent", (e) -> rentVideo(), 18, 148, 117, 29);
-		makeButton("Return", (e) -> returnVideo(), 136, 148, 117, 29);
+		makeLabel("User Code:", 147, 59, 70, 16);
 
-		makeSeparator(18, 176, 583, 16);
+		userCodeField = new JTextField();
+		userCodeField.setBounds(217, 54, 50, 26);
+		getContentPane().add(userCodeField);
+		userCodeField.setColumns(10);
 
-		makeButton("List Customers", (e) -> listCustomers(), 18, 193, 130, 29);
-		makeButton("List Videos", (e) -> listVideos(), 146, 193, 117, 29);
-		makeButton("Customer Report", (e) -> getCustomerReport(), 297, 193, 138, 29);
-		makeButton("Clear Customer Rentals", (e) -> clearRentals(), 427, 193, 174, 29);
-		makeButton("Clear", (e) -> clear(), 484, 149, 117, 29);
+		makeLabel("Name:", 280, 59, 61, 16);
+
+		nameField = new JTextField();
+		nameField.setBounds(324, 54, 120, 26);
+		getContentPane().add(nameField);
+		nameField.setColumns(10);
+
+		makeLabel("Birthday:", 462, 59, 60, 16);
+
+		birthdayField = new JTextField();
+		birthdayField.setBounds(520, 54, 96, 26);
+		getContentPane().add(birthdayField);
+		birthdayField.setColumns(10);
 	}
 
 	private void clear() {
