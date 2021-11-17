@@ -8,6 +8,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
+import video.rental.demo.application.Interactor;
+import video.rental.demo.domain.Repository;
+import video.rental.demo.infrastructure.RepositoryMemImpl;
+import video.rental.demo.presentation.CmdUI;
+import video.rental.demo.utils.SampleGenerator;
+
 public class GoldenMaster {
 
 	private String goldenMasterFile = "./goldenmaster/goldenmaster.txt";
@@ -42,9 +48,6 @@ public class GoldenMaster {
 		}
 	}
 
-	// "absc\ndef\nfhjg"
-	// "def
-	// "fhjg"    "\r\n"
 	public String getGoldenMaster() {
 		try {
 			return Files.readAllLines(Paths.get(goldenMasterFile))
@@ -64,7 +67,11 @@ public class GoldenMaster {
 		ByteArrayInputStream istream = new ByteArrayInputStream(simulatedInput.getBytes());
 		System.setIn(istream);
 		
-		CmdUI ui = new CmdUI();
+		Repository repository = new RepositoryMemImpl();
+		new SampleGenerator(repository).generateSamples();
+		
+		Interactor interactor = new Interactor(repository);
+		CmdUI ui = new CmdUI(interactor);
 		ui.start();
 		
 		return ostream.toString();
