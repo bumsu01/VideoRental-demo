@@ -49,6 +49,7 @@ public class Rental {
 			this.status = 1;
 			this.returnDate = LocalDateTime.now();
 		}
+		video.setRented(false);
 		return video;
 	}
 
@@ -106,5 +107,13 @@ public class Rental {
 		builder.append(toStringNoReturnStatus());
 		builder.append("\tReturn Status: " + getStatus() + "\n");
 		return builder.toString();
+	}
+
+	public boolean isVideoTitle(String title) {
+		return video.getTitle().equals(title);
+	}
+
+	public boolean isVideoRented() {
+		return video.isRented();
 	}
 }

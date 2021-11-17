@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import video.rental.demo.domain.Customer;
 import video.rental.demo.domain.Rating;
-import video.rental.demo.domain.Rental;
 import video.rental.demo.domain.Repository;
 import video.rental.demo.domain.Video;
 
@@ -37,18 +36,11 @@ public class Interactor {
 		Customer foundCustomer = getRepository().findCustomerById(customerCode);
 		if (foundCustomer == null)
 			return;
-	
-		List<Rental> customerRentals = foundCustomer.getRentals();
-	
-		for (Rental rental : customerRentals) {
-			if (rental.getVideo().getTitle().equals(videoTitle) && rental.getVideo().isRented()) {
-				Video video = rental.returnVideo();
-				video.setRented(false);
-				getRepository().saveVideo(video);
-				break;
-			}
-		}
-	
+
+		Video video = foundCustomer.returnVideo(videoTitle);
+		if (video != null)
+			getRepository().saveVideo(video);
+
 		getRepository().saveCustomer(foundCustomer);
 	}
 

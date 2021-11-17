@@ -134,4 +134,15 @@ public class Customer {
 		setRentals(rentals);
 		return builder.toString();
 	}
+
+	public Video returnVideo(String videoTitle) {
+		List<Rental> customerRentals = getRentals();
+
+		for (Rental rental : customerRentals) {
+			if (rental.isVideoTitle(videoTitle) && rental.isVideoRented()) {
+				return rental.returnVideo();
+			}
+		}
+		return null;
+	}
 }
