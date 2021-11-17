@@ -91,4 +91,20 @@ public class Rental {
 
 	    return days == 0 ? 1 : days + 1;
 	}
+
+
+	public String toStringNoReturnStatus() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("\tTitle: " + getVideo().getTitle() + " ");
+		builder.append("\tPrice Code: " + getVideo().getPriceCode());
+		return builder.toString();
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(toStringNoReturnStatus());
+		builder.append("\tReturn Status: " + getStatus() + "\n");
+		return builder.toString();
+	}
 }

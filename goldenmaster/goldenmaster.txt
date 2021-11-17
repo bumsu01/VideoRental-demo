@@ -195,7 +195,7 @@ Select a command !
 	 7. Show customer report
 	 8. Show customer and clear rentals
 Enter customer code: 
-Id: 0
+ID: 0
 Name: James	Rentals: 2
 	Title: V1 	Price Code: 1	Title: V2 	Price Code: 2
 Select a command !

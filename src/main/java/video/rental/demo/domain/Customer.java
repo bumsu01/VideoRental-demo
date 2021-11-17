@@ -3,6 +3,7 @@ package video.rental.demo.domain;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -105,4 +106,32 @@ public class Customer {
 		return result;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		getSummary(builder);
+		builder.append(getRentals()
+				.stream()
+				.map(Rental::toString)
+				.collect(Collectors.joining()));
+		return builder.toString();
+	}
+
+	private void getSummary(StringBuilder builder) {
+		builder.append("ID: " + getCode() + "\nName: " + getName() + "\tRentals: "
+				+ getRentals().size() + "\n");
+	}
+
+	public String clearRental() {
+		StringBuilder builder = new StringBuilder();
+		getSummary(builder);
+
+		for (Rental rental : getRentals()) {
+			builder.append(rental.toStringNoReturnStatus());
+		}
+
+		List<Rental> rentals = new ArrayList<Rental>();
+		setRentals(rentals);
+		return builder.toString();
+	}
 }

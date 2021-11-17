@@ -1,8 +1,8 @@
 package video.rental.demo.application;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import video.rental.demo.domain.Customer;
 import video.rental.demo.domain.Rating;
@@ -26,16 +26,7 @@ public class Interactor {
 		if (foundCustomer == null) {
 			builder.append("No customer found\n");
 		} else {
-			builder.append("Id: " + foundCustomer.getCode() + "\nName: " + foundCustomer.getName() + "\tRentals: "
-					+ foundCustomer.getRentals().size() + "\n");
-			for (Rental rental : foundCustomer.getRentals()) {
-				builder.append("\tTitle: " + rental.getVideo().getTitle() + " ");
-				builder.append("\tPrice Code: " + rental.getVideo().getPriceCode());
-			}
-	
-			List<Rental> rentals = new ArrayList<Rental>();
-			foundCustomer.setRentals(rentals);
-	
+			builder.append(foundCustomer.clearRental());
 			getRepository().saveCustomer(foundCustomer);
 		}
 		
@@ -79,18 +70,10 @@ public class Interactor {
 
 	public String listCustomers() {
 		List<Customer> customers = getRepository().findAllCustomers();
-
-		StringBuilder builder = new StringBuilder();
-		for (Customer customer : customers) {
-			builder.append("ID: " + customer.getCode() + "\nName: " + customer.getName() + "\tRentals: "
-					+ customer.getRentals().size() + "\n");
-			for (Rental rental : customer.getRentals()) {
-				builder.append("\tTitle: " + rental.getVideo().getTitle() + " ");
-				builder.append("\tPrice Code: " + rental.getVideo().getPriceCode());
-				builder.append("\tReturn Status: " + rental.getStatus() + "\n");
-			}
-		}
-		return  builder.toString();
+		return customers
+				.stream()
+				.map(Customer::toString)
+				.collect(Collectors.joining());
 	}
 
 	public String getCustomerReports(int code) {

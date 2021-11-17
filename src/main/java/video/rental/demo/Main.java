@@ -16,7 +16,7 @@ public class Main {
 		new SampleGenerator(repository).generateSamples();
 		
 		Interactor interactor = new Interactor(repository);
-		ui = new GraphicUI(interactor);
+		ui = new CmdUI(interactor);
 		ui.start();
 	}
 }
