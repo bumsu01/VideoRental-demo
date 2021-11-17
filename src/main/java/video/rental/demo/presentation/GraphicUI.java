@@ -114,25 +114,19 @@ public class GraphicUI extends JFrame implements UI {
 
 		makeLabel("Price Code:", 294, 100, 75, 16);
 
-		String[] priceCodes = new String[] { "Regular", "New", "Children" };
-		SpinnerListModel priceCodeModel = new SpinnerListModel(priceCodes);
-		priceCodeSpinner = new JSpinner(priceCodeModel);
+		priceCodeSpinner = makeSpinner("Regular", "New", "Children");
 		priceCodeSpinner.setBounds(362, 95, 75, 26);
 		getContentPane().add(priceCodeSpinner);
 
 		makeLabel("Type:", 445, 100, 61, 16);
 
-		String[] videoTypes = new String[] { "VHS", "CD", "DVD" };
-		SpinnerListModel videoTypeModel = new SpinnerListModel(videoTypes);
-		videoTypeSpinner = new JSpinner(videoTypeModel);
+		videoTypeSpinner = makeSpinner("VHS", "CD", "DVD");
 		videoTypeSpinner.setBounds(480, 95, 55, 26);
 		getContentPane().add(videoTypeSpinner);
 
 		makeLabel("Rating:", 544, 100, 61, 16);
 
-		String[] videoRating = new String[] { "Twelve", "Fifteen", "Eighteen" };
-		SpinnerListModel videoRatingModel = new SpinnerListModel(videoRating);
-		ratingSpinner = new JSpinner(videoRatingModel);
+		ratingSpinner = makeSpinner("Twelve", "Fifteen", "Eighteen");
 		ratingSpinner.setBounds(590, 95, 70, 26);
 		getContentPane().add(ratingSpinner);
 
@@ -269,5 +263,10 @@ public class GraphicUI extends JFrame implements UI {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(x, y, w, h);
 		getContentPane().add(separator);
+	}
+
+	private JSpinner makeSpinner(String... labels) {
+		SpinnerListModel spinnerListModel = new SpinnerListModel(labels);
+		return new JSpinner(spinnerListModel);
 	}
 }
