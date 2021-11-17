@@ -116,4 +116,42 @@ public class Rental {
 	public boolean isVideoRented() {
 		return video.isRented();
 	}
+
+	public double getVideoCharge() {
+		int daysRented = getDaysRented();
+
+		int charge = 0;
+		switch (getVideo().getPriceCode()) {
+			case Video.REGULAR:
+				charge = 2;
+				if (daysRented > 2)
+					charge += (daysRented - 2) * 1.5;
+				break;
+			case Video.NEW_RELEASE:
+				charge = daysRented * 3;
+				break;
+			case Video.CHILDREN:
+				charge += 1.5;
+				if (daysRented > 3)
+					charge += (daysRented - 3) * 1.5;
+				break;
+		}
+		return charge;
+	}
+
+	public int getPoint() {
+		int daysRented = getDaysRented();
+		int point = 1;
+		if ((getVideo().getPriceCode() == Video.NEW_RELEASE))
+			point++;
+
+		if (daysRented > getDaysRentedLimit())
+			point -= Math.min(point, getVideo().getLateReturnPointPenalty());
+		return point;
+	}
+
+	public String getReport() {
+		return  getVideo().getTitle() + "\tDays rented: " + getDaysRented() + "\tCharge: " + getVideoCharge()
+				+ "\tPoint: " + getPoint() + "\n";
+	}
 }

@@ -141,4 +141,16 @@ public class Video {
 			return false;
 		}
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(
+				"Video type: " + getVideoType() +
+						"\tPrice code: " + getPriceCode() +
+						"\tRating: " + getVideoRating() +
+						"\tTitle: " + getTitle() + "\n"
+		);
+		return builder.toString();
+	}
 }
