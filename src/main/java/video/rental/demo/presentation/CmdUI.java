@@ -30,10 +30,10 @@ public class CmdUI implements UI {
 				listVideos();
 				break;
 			case 3:
-				register("customer");
+				registerUser();
 				break;
 			case 4:
-				register("video");
+				registerVideo();
 				break;
 			case 5:
 				rentVideo();
@@ -54,6 +54,7 @@ public class CmdUI implements UI {
 		System.out.println("Bye");
 	}
 
+	@Override
 	public void clearRentals() {
 		System.out.println("Enter customer code: ");
 		int customerCode = scanner.nextInt();
@@ -61,6 +62,7 @@ public class CmdUI implements UI {
 		System.out.print(interactor.clearRentals(customerCode));
 	}
 
+	@Override
 	public void returnVideo() {
 		System.out.println("Enter customer code: ");
 		int customerCode = scanner.nextInt();
@@ -71,6 +73,7 @@ public class CmdUI implements UI {
 		interactor.returnVideo(customerCode, videoTitle);
 	}
 
+	@Override
 	public void listVideos() {
 		System.out.println("List of videos");
 
@@ -79,6 +82,7 @@ public class CmdUI implements UI {
 		System.out.println("End of list");
 	}
 
+	@Override
 	public void listCustomers() {
 		System.out.println("List of customers");
 
@@ -87,6 +91,7 @@ public class CmdUI implements UI {
 		System.out.println("End of list");
 	}
 
+	@Override
 	public void getCustomerReport() {
 		System.out.println("Enter customer code: ");
 		int code = scanner.nextInt();
@@ -94,6 +99,7 @@ public class CmdUI implements UI {
 		System.out.print(interactor.getCustomerReports(code));
 	}
 
+	@Override
 	public void rentVideo() {
 		System.out.println("Enter customer code: ");
 		int code = scanner.nextInt();
@@ -104,36 +110,37 @@ public class CmdUI implements UI {
 		interactor.rentVideo(code, videoTitle);
 	}
 
-	// control coupling
-	public void register(String object) {
-		if (object.equals("customer")) {
-			System.out.println("Enter customer name: ");
-			String name = scanner.next();
+	@Override
+	public void registerUser() {
+		System.out.println("Enter customer name: ");
+		String name = scanner.next();
 
-			System.out.println("Enter customer code: ");
-			int code = scanner.nextInt();
+		System.out.println("Enter customer code: ");
+		int code = scanner.nextInt();
 
-			System.out.println("Enter customer birthday: ");
-			String dateOfBirth = scanner.next();
+		System.out.println("Enter customer birthday: ");
+		String dateOfBirth = scanner.next();
 
-			interactor.registerCustomer(name, code, dateOfBirth);
-		} else {
-			System.out.println("Enter video title to register: ");
-			String title = scanner.next();
+		interactor.registerCustomer(name, code, dateOfBirth);
+	}
 
-			System.out.println("Enter video type( 1 for VHD, 2 for CD, 3 for DVD ):");
-			int videoType = scanner.nextInt();
+	@Override
+	public void registerVideo() {
+		System.out.println("Enter video title to register: ");
+		String title = scanner.next();
 
-			System.out.println("Enter price code( 1 for Regular, 2 for New Release 3 for Children ):");
-			int priceCode = scanner.nextInt();
+		System.out.println("Enter video type( 1 for VHD, 2 for CD, 3 for DVD ):");
+		int videoType = scanner.nextInt();
 
-			System.out.println("Enter video rating( 1 for 12, 2 for 15, 3 for 18 ):");
-			int videoRating = scanner.nextInt();
-			
-			LocalDate registeredDate = LocalDate.now();
-			
-			interactor.registerVideo(title, videoType, priceCode, videoRating, registeredDate);
-		}
+		System.out.println("Enter price code( 1 for Regular, 2 for New Release 3 for Children ):");
+		int priceCode = scanner.nextInt();
+
+		System.out.println("Enter video rating( 1 for 12, 2 for 15, 3 for 18 ):");
+		int videoRating = scanner.nextInt();
+
+		LocalDate registeredDate = LocalDate.now();
+
+		interactor.registerVideo(title, videoType, priceCode, videoRating, registeredDate);
 	}
 
 	public int getCommand() {
@@ -148,9 +155,7 @@ public class CmdUI implements UI {
 		System.out.println("\t 7. Show customer report");
 		System.out.println("\t 8. Show customer and clear rentals");
 
-		int command = scanner.nextInt();
-
-		return command;
+		return scanner.nextInt();
 	}
 
 }

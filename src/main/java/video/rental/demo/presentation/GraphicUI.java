@@ -158,7 +158,8 @@ public class GraphicUI extends JFrame implements UI {
 		textArea.setText("");
 	}
 
-	private void clearRentals()
+	@Override
+	public void clearRentals()
 	{
 		int code = Integer.parseInt(userCodeField.getText().toString());
 
@@ -167,7 +168,8 @@ public class GraphicUI extends JFrame implements UI {
 		textArea.append(result);
 	}
 
-	private void getCustomerReport() {
+	@Override
+	public void getCustomerReport() {
 		int code = Integer.parseInt(userCodeField.getText().toString());
 
 		String result = interactor.getCustomerReports(code);
@@ -175,33 +177,38 @@ public class GraphicUI extends JFrame implements UI {
 		textArea.append(result);
 	}
 
-	private void listVideos() {
+	@Override
+	public void listVideos() {
 		textArea.append("List of videos\n");
 		textArea.append(interactor.listVideos());
 		textArea.append("End of list\n");
 	}
 
-	private void listCustomers() {
+	@Override
+	public void listCustomers() {
 		textArea.append("List of customers\n");
 		textArea.append(interactor.listCustomers());
 		textArea.append("End of list\n");
 	}
 
-	private void returnVideo() {
+	@Override
+	public void returnVideo() {
 		int customerCode = Integer.parseInt(userCodeField.getText().toString());
 		String videoTitle = titleField.getText().toString();
 
 		interactor.returnVideo(customerCode, videoTitle);
 	}
 
-	private void rentVideo() {
+	@Override
+	public void rentVideo() {
 		int customerCode = Integer.parseInt(userCodeField.getText().toString());
 		String videoTitle = titleField.getText().toString();
 
 		interactor.rentVideo(customerCode, videoTitle);
 	}
 
-	private void registerUser() {
+	@Override
+	public void registerUser() {
 		int code = Integer.parseInt(userCodeField.getText().toString());
 		String name = nameField.getText().toString();
 		String birthday = birthdayField.getText().toString();
@@ -209,7 +216,8 @@ public class GraphicUI extends JFrame implements UI {
 		interactor.registerCustomer(name, code, birthday);
 	}
 
-	private void registerVideo() {
+	@Override
+	public void registerVideo() {
 		String title = titleField.getText().toString();
 		String videoTypeString = videoTypeSpinner.getValue().toString();
 		int videoType;
