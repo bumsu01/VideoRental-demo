@@ -76,18 +76,12 @@ public class Interactor {
 	
 		Video foundVideo = getRepository().findVideoByTitle(videoTitle);
 	
-		if (foundVideo == null)
+		if (foundVideo == null || foundVideo.isRented())
 			return;
 	
-		if (foundVideo.isRented() == true)
-			return;
-	
-		Boolean status = foundVideo.rentFor(foundCustomer);
-		if (status == true) {
+		if (foundVideo.rentFor(foundCustomer)) {
 			getRepository().saveVideo(foundVideo);
 			getRepository().saveCustomer(foundCustomer);
-		} else {
-			return;
 		}
 	}
 
