@@ -7,12 +7,13 @@ import video.rental.demo.application.Interactor;
 
 public class CmdUI {
 	private static Scanner scanner = new Scanner(System.in);
-
 	private Interactor interactor;
 	
 	public CmdUI(Interactor interactor) {
 		this.interactor = interactor;
 	}
+	
+	CmdFunction cmdFunction;
 
 	public void start() {
 		boolean quit = false;
@@ -23,116 +24,34 @@ public class CmdUI {
 				quit = true;
 				break;
 			case 1:
-				listCustomers();
+				cmdFunction.listCustomers(interactor);
 				break;
 			case 2:
-				listVideos();
+				cmdFunction.listVideos(interactor);
 				break;
 			case 3:
-				register("customer");
+				cmdFunction.register(interactor, "customer");
 				break;
 			case 4:
-				register("video");
+				cmdFunction.register(interactor, "video");
 				break;
 			case 5:
-				rentVideo();
+				cmdFunction.rentVideo(interactor);
 				break;
 			case 6:
-				returnVideo();
+				cmdFunction.returnVideo(interactor);
 				break;
 			case 7:
-				getCustomerReport();
+				cmdFunction.getCustomerReport(interactor);
 				break;
 			case 8:
-				clearRentals();
+				cmdFunction.clearRentals(interactor);
 				break;
 			default:
 				break;
 			}
 		}
 		System.out.println("Bye");
-	}
-
-	public void clearRentals() {
-		System.out.println("Enter customer code: ");
-		int customerCode = scanner.nextInt();
-
-		System.out.print(interactor.clearRentals(customerCode));
-	}
-
-	public void returnVideo() {
-		System.out.println("Enter customer code: ");
-		int customerCode = scanner.nextInt();
-
-		System.out.println("Enter video title to return: ");
-		String videoTitle = scanner.next();
-		
-		interactor.returnVideo(customerCode, videoTitle);
-	}
-
-	public void listVideos() {
-		System.out.println("List of videos");
-
-		System.out.print(interactor.listVideos());
-		
-		System.out.println("End of list");
-	}
-
-	public void listCustomers() {
-		System.out.println("List of customers");
-
-		interactor.listCustomers();
-		
-		System.out.println("End of list");
-	}
-
-	public void getCustomerReport() {
-		System.out.println("Enter customer code: ");
-		int code = scanner.nextInt();
-
-		interactor.getCustomerReposrt(code);
-	}
-
-	public void rentVideo() {
-		System.out.println("Enter customer code: ");
-		int code = scanner.nextInt();
-
-		System.out.println("Enter video title to rent: ");
-		String videoTitle = scanner.next();
-		
-		interactor.rentVideo(code, videoTitle);
-	}
-
-	// control coupling
-	public void register(String object) {
-		if (object.equals("customer")) {
-			System.out.println("Enter customer name: ");
-			String name = scanner.next();
-
-			System.out.println("Enter customer code: ");
-			int code = scanner.nextInt();
-
-			System.out.println("Enter customer birthday: ");
-			String dateOfBirth = scanner.next();
-
-			interactor.registerCustomer(name, code, dateOfBirth);
-		} else {
-			System.out.println("Enter video title to register: ");
-			String title = scanner.next();
-
-			System.out.println("Enter video type( 1 for VHD, 2 for CD, 3 for DVD ):");
-			int videoType = scanner.nextInt();
-
-			System.out.println("Enter price code( 1 for Regular, 2 for New Release 3 for Children ):");
-			int priceCode = scanner.nextInt();
-
-			System.out.println("Enter video rating( 1 for 12, 2 for 15, 3 for 18 ):");
-			int videoRating = scanner.nextInt();
-			
-			LocalDate registeredDate = LocalDate.now();
-			
-			interactor.registerVideo(title, videoType, priceCode, videoRating, registeredDate);
-		}
 	}
 
 	public int getCommand() {
