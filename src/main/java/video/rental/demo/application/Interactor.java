@@ -34,7 +34,7 @@ public class Interactor {
 			}
 	
 			List<Rental> rentals = new ArrayList<Rental>();
-			foundCustomer.setRentals(rentals);
+			foundCustomer.setRentals(rentals); // temporary field -> replace method with method object (rental 을 clear 하는 함수로 변경)
 	
 			getRepository().saveCustomer(foundCustomer);
 		}
@@ -50,7 +50,7 @@ public class Interactor {
 		List<Rental> customerRentals = foundCustomer.getRentals();
 	
 		for (Rental rental : customerRentals) {
-			if (rental.getVideo().getTitle().equals(videoTitle) && rental.getVideo().isRented()) {
+			if (rental.getVideo().getTitle().equals(videoTitle) && rental.getVideo().isRented()) { // shotgun surgery -> Consolidate Responsibility in a Single Class (list find 함수로 변경)
 				Video video = rental.returnVideo();
 				video.setRented(false);
 				getRepository().saveVideo(video);
@@ -129,7 +129,7 @@ public class Interactor {
 		getRepository().saveCustomer(customer);
 	}
 
-	public void registerVideo(String title, int videoType, int priceCode, int videoRating, LocalDate registeredDate) {
+	public void registerVideo(String title, int videoType, int priceCode, int videoRating, LocalDate registeredDate) {  // long parameter list -> Introduce Parameter Object (register video object 생성)
 		Rating rating;
 		if (videoRating == 1) rating = Rating.TWELVE;
 		else if (videoRating == 2) rating = Rating.FIFTEEN;
