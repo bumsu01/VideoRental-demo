@@ -24,7 +24,7 @@ public class Interactor {
 		Customer foundCustomer = getRepository().findCustomerById(customerCode);
 	
 		if (foundCustomer == null) {
-			System.out.println("No customer found");
+			return "No customer found";
 		} else {
 			builder.append("Id: " + foundCustomer.getCode() + "\nName: " + foundCustomer.getName() + "\tRentals: "
 					+ foundCustomer.getRentals().size() + "\n");
@@ -77,28 +77,31 @@ public class Interactor {
 		return builder.toString();
 	}
 
-	public void listCustomers() {
+	public String listCustomers() {
+
 		List<Customer> customers = getRepository().findAllCustomers();
-	
+
+		StringBuilder sb = new StringBuilder();
 		for (Customer customer : customers) {
-			System.out.println("ID: " + customer.getCode() + "\nName: " + customer.getName() + "\tRentals: "
+			sb.append("ID: " + customer.getCode() + "\nName: " + customer.getName() + "\tRentals: "
 					+ customer.getRentals().size());
 			for (Rental rental : customer.getRentals()) {
-				System.out.print("\tTitle: " + rental.getVideo().getTitle() + " ");
-				System.out.print("\tPrice Code: " + rental.getVideo().getPriceCode());
-				System.out.println("\tReturn Status: " + rental.getStatus());
+				sb.append("\tTitle: " + rental.getVideo().getTitle() + " ");
+				sb.append("\tPrice Code: " + rental.getVideo().getPriceCode());
+				sb.append("\tReturn Status: " + rental.getStatus());
 			}
 		}
+
+		return sb.toString();
 	}
 
-	public void getCustomerReposrt(int code) {
+	public String getCustomerReposrt(int code) {
 		Customer foundCustomer = getRepository().findCustomerById(code);
 	
 		if (foundCustomer == null) {
-			System.out.println("No customer found");
+			return "No customer found";
 		} else {
-			String result = foundCustomer.getReport();
-			System.out.println(result);
+			return foundCustomer.getReport();
 		}
 	}
 
